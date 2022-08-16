@@ -5,7 +5,7 @@ name: Deploy Docs to Github pages
 permissions:
   contents: write
 
-// TODO: Deploy on stable release instead
+# TODO: Deploy on stable release instead
 on:
   push:
     #tags:
