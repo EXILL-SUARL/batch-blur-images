@@ -1,7 +1,7 @@
 {
   "name": "@exill-suarl/batch-blur-images",
   "private": false,
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "A helper library to mass blur all images in the given directory.",
   "type": "module",
   "repository": "https://github.com/exill-suarl/batch-blur-images.git",
