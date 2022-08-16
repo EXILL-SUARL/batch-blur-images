@@ -1,0 +1,33 @@
+name: checks
+on:
+  - pull_request
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.2
+      - uses: ./.github/actions/setup
+  format:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.2
+      - uses: ./.github/actions/setup
+      - run: yarn format:check
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.2
+      - uses: ./.github/actions/setup
+      - run: yarn lint
+  type-check:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.2
+      - uses: ./.github/actions/setup
+      - run: yarn typecheck
+  test:
+    needs: setup
+    uses: ./.github/workflows/test.yml

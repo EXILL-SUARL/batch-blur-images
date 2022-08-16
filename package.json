@@ -1,0 +1,64 @@
+{
+  "name": "@exill-suarl/batch-blur-images",
+  "private": false,
+  "version": "1.0.0-alpha.0",
+  "description": "A TypeScript boilerplate with modern tooling to kickstart creating a JS module that supports major browsers as well Node.js.",
+  "type": "module",
+  "repository": "https://github.com/exill-suarl/batch-blur-images.git",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 16.13 <17"
+  },
+  "files": [
+    "build"
+  ],
+  "main": "./build/index.js",
+  "types": "./build.index.d.ts",
+  "scripts": {
+    "ts-node": "ts-node-esm",
+    "format": "prettier --write **/*.ts",
+    "format:check": "prettier --check **/*.ts",
+    "lint": "eslint ./**/*.ts --max-warnings 0",
+    "lint:fix": "eslint ./**/*.ts --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf build node_modules/.cache",
+    "test": "jest",
+    "docs": "typedoc --entryPoints src/index.ts",
+    "dev": "yarn clean && tsc --build --watch",
+    "build": "tsc",
+    "update": "yarn upgrade-interactive",
+    "release": "dotenv release-it --",
+    "dotenv:login": "npx dotenv-vault new && npx dotenv-vault login",
+    "dotenv:pull": "npx dotenv-vault pull",
+    "dotenv:push": "npx dotenv-vault push"
+  },
+  "release-it": {
+    "github": {
+      "release": true,
+      "tokenRef": "RELEASEIT_GH_TOKEN"
+    },
+    "npm": {
+      "publish": true,
+      "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+      }
+    }
+  },
+  "devDependencies": {
+    "@jest/types": "^28.1.3",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.6",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.8.3",
+    "jest": "^28.1.3",
+    "prettier": "^2.7.1",
+    "release-it": "^15.3.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
+    "typedoc": "^0.23.10",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {}
+}

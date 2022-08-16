@@ -1,0 +1,22 @@
+name: Setup
+description: Boilerplate steps needed by most jobs.
+inputs:
+  node-version:
+    description: Version of Node to use.
+    required: false
+    default: 16.x
+  install-deps:
+    description: Should deps be installed?
+    required: false
+    default: 'true'
+runs:
+  using: composite
+  steps:
+    - name: Use Node.js ${{inputs.node-version}}
+      uses: actions/setup-node@v3.4.1
+      with:
+        node-version: ${{inputs.node-version}}
+    - name: Install dependencies
+      run: yarn install
+      shell: bash
+      if: ${{inputs.install-deps}} == 'true'
