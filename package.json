@@ -38,8 +38,9 @@
       "tokenRef": "RELEASEIT_GH_TOKEN"
     },
     "npm": {
-      "publish": true,
+      "publish": false,
       "publishConfig": {
+        "access": "public",
         "registry": "https://npm.pkg.github.com"
       }
     }
@@ -49,6 +50,7 @@
     "@types/jest": "^28.1.7",
     "@types/node": "^18.7.6",
     "dotenv": "^16.0.1",
+    "dotenv-cli": "^6.0.0",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.8.3",
