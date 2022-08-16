@@ -38,12 +38,11 @@
       "tokenRef": "RELEASEIT_GH_TOKEN"
     },
     "npm": {
-      "publish": false,
-      "publishConfig": {
-        "access": "public",
-        "registry": "https://npm.pkg.github.com"
-      }
+      "publish": true
     }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@jest/types": "^28.1.3",
