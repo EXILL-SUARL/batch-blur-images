@@ -5,7 +5,7 @@
     "lib": [
       "ES2022"
     ],
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Node", // switched from NodeNext because it was incompatible with Got@v12.1.0 and later versions, see: https://github.com/sindresorhus/got/issues/2051#issue-1258534664 and https://github.com/sindresorhus/got/pull/2109
     "declaration": true,
     "declarationMap": true,
     "rootDir": "src",
