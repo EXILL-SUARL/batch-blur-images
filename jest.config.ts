@@ -8,6 +8,7 @@ const config: Config.InitialOptions = {
       useESM: true,
     },
   },
+  modulePathIgnorePatterns: ["<rootDir>/build/"]
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': `$1`,
   },
