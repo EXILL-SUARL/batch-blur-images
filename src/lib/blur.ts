@@ -1,4 +1,4 @@
-import sharp, { SharpOptions } from 'sharp'
+import sharp from 'sharp'
 import { readdir } from 'fs/promises'
 import isImage from 'is-image'
 import path from 'path'
