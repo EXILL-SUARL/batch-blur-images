@@ -2,5 +2,5 @@
 
 sudo apt update && sudo apt -y upgrade
 
-npm i  @devcontainers/cli ts-node -G
+npm i --global @devcontainers/cli ts-node 
 brew install neovim
