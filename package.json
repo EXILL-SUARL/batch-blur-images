@@ -41,7 +41,8 @@
     }
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   },
   "devDependencies": {
     "@jest/types": "^28.1.3",
