@@ -46,21 +46,26 @@
   "devDependencies": {
     "@jest/types": "^28.1.3",
     "@types/jest": "^28.1.7",
+    "@types/mkdirp": "^1.0.2",
     "@types/node": "^18.7.6",
     "@types/sharp": "^0.30.5",
+    "@types/uuid": "^8.3.4",
     "dotenv": "^16.0.1",
     "dotenv-cli": "^6.0.0",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.8.3",
+    "got": "^12.3.1",
     "jest": "^28.1.3",
+    "mkdirp": "^1.0.4",
     "prettier": "^2.7.1",
     "release-it": "^15.3.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
     "typedoc": "^0.23.10",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "uuid": "^8.3.2"
   },
   "dependencies": {
     "is-image": "^3.1.0",
