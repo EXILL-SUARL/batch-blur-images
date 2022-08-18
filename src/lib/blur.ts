@@ -1,5 +1,5 @@
 import sharp from 'sharp'
-import { getFileList } from './utils'
+import { getFileList } from './utils.js'
 import isImage from 'is-image'
 import path from 'path'
 
