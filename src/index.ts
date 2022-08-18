@@ -1,1 +1,3 @@
-export * from './lib/blur.js'
+import blur from './lib/blur'
+
+export default blur
