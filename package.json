@@ -27,7 +27,7 @@
     "dev": "npm run clean && tsc --build --watch",
     "build": "tsc",
     "release-it": "dotenv release-it --",
-    "release": "npm run build && npm run release-it && npm run clean",
+    "release": "npm run clean && npm run build && npm run release-it && npm run clean",
     "dotenv:login": "npx dotenv-vault new && npx dotenv-vault login",
     "dotenv:pull": "npx dotenv-vault pull",
     "dotenv:push": "npx dotenv-vault push"
