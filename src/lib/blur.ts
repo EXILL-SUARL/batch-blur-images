@@ -42,7 +42,6 @@ const entry = (targetDir: string, sigma: number | boolean) => {
                 })
             } catch (err) {
               throw err
-              return
             }
           }
         })
