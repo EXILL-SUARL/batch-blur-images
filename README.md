@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/EXILL-SUARL/batch-blur-images/actions/workflows/test.yml/badge.svg)](https://github.com/{user}/{repo}/actions)
+[![CI test Status](https://github.com/EXILL-SUARL/batch-blur-images/actions/workflows/test.yml/badge.svg)](https://github.com/EXILL-SUARL/batch-blur-images/actions)
 # batch-blur-images
 A pure ESM helper library to mass blur all images in the given directory.
 
