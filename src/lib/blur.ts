@@ -16,51 +16,50 @@ const getFileList = async (dirName: string) => {
   return files
 }
 
-const entry =
-  /**
-   * Specify the path of a directory (containing images) and a value for Sharp's blur sigma parameter: https://sharp.pixelplumbing.com/api-operation#blur
-   * @date 8/18/2022 - 8:56:28 AM
-   *
-   * @param {string} targetDir
-   * @param {(number | boolean)} sigma
-   * @returns {*}
-   */
-  (targetDir: string, sigma: number | boolean) => {
-    return new Promise(function (resolve, reject) {
-      getFileList(targetDir).then((files) => {
-        try {
-          files.forEach(async (file) => {
-            // TODO: implement a dynamic list of supported formats by Sharp once sharp@v0.31.0 gets released: https://github.com/lovell/sharp/issues/2642#issuecomment-1180197850
-            const supportedFormats = [
-              'jpg',
-              'jpeg',
-              'gif',
-              'webp',
-              'tif',
-              'png',
-              'jpeg',
-            ]
-            const fileExt = path.extname(file).substring(1)
-            if (isImage(file) && supportedFormats.includes(fileExt)) {
-              try {
-                await sharp(file)
-                  .blur(sigma)
-                  .toBuffer()
-                  .then((buffer) => {
-                    sharp(buffer).toFile(file)
-                  })
-              } catch (err) {
-                throw err
-              }
+/**
+ * Blurs images in the given directory.
+ * @date 8/18/2022 - 8:56:28 AM
+ *
+ * @param {string} targetDir The path of a directory containing images.
+ * @param {(number | boolean)} sigma The value for Sharp's blur sigma parameter: https://sharp.pixelplumbing.com/api-operation#blur.
+ * @returns {*}
+ */
+const entry = (targetDir: string, sigma: number | boolean) => {
+  return new Promise(function (resolve, reject) {
+    getFileList(targetDir).then((files) => {
+      try {
+        files.forEach(async (file) => {
+          // TODO: implement a dynamic list of supported formats by Sharp once sharp@v0.31.0 gets released: https://github.com/lovell/sharp/issues/2642#issuecomment-1180197850
+          const supportedFormats = [
+            'jpg',
+            'jpeg',
+            'gif',
+            'webp',
+            'tif',
+            'png',
+            'jpeg',
+          ]
+          const fileExt = path.extname(file).substring(1)
+          if (isImage(file) && supportedFormats.includes(fileExt)) {
+            try {
+              await sharp(file)
+                .blur(sigma)
+                .toBuffer()
+                .then((buffer) => {
+                  sharp(buffer).toFile(file)
+                })
+            } catch (err) {
+              throw err
             }
-          })
+          }
+        })
 
-          resolve(files.length)
-        } catch (err) {
-          reject(err)
-        }
-      })
+        resolve(files.length)
+      } catch (err) {
+        reject(err)
+      }
     })
-  }
+  })
+}
 
 export default entry
