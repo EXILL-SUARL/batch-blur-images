@@ -1,19 +1,25 @@
 import sharp from 'sharp'
-import { readdir } from 'fs/promises'
+import { getFileList } from './utils'
 import isImage from 'is-image'
 import path from 'path'
 
-const getFileList = async (dirName: string) => {
-  let files: string[] = []
-  const items = await readdir(dirName, { withFileTypes: true })
-  for (const item of items) {
-    if (item.isDirectory()) {
-      files = [...files, ...(await getFileList(`${dirName}/${item.name}`))]
-    } else {
-      files.push(`${dirName}/${item.name}`)
+// TODO: implement a dynamic list of supported formats by Sharp once sharp@v0.31.0 gets released: https://github.com/lovell/sharp/issues/2642#issuecomment-1180197850
+const supportedFormats = ['jpg', 'jpeg', 'gif', 'webp', 'tif', 'png', 'jpeg']
+
+const blurImage = async (file: string, sigma?: number | boolean) => {
+  const fileExt = path.extname(file).substring(1)
+  return new Promise(async (resolve, reject) => {
+    if (isImage(file) && supportedFormats.includes(fileExt)) {
+      await sharp(file)
+        .blur(sigma)
+        .toBuffer()
+        .then((buffer) => {
+          sharp(buffer).toFile(file)
+        })
+        .then(() => resolve(file))
+        .catch((err) => reject(err))
     }
-  }
-  return files
+  })
 }
 
 /**
@@ -22,44 +28,17 @@ const getFileList = async (dirName: string) => {
  *
  * @param {string} targetDir The path of a directory containing images.
  * @param {(number | boolean)} sigma The value for Sharp's blur sigma parameter: https://sharp.pixelplumbing.com/api-operation#blur.
- * @returns {*}
+ * @returns {Promise<unknown>}
  */
-const entry = (targetDir: string, sigma: number | boolean) => {
-  return new Promise(function (resolve, reject) {
-    getFileList(targetDir).then((files) => {
-      try {
-        files.forEach(async (file) => {
-          // TODO: implement a dynamic list of supported formats by Sharp once sharp@v0.31.0 gets released: https://github.com/lovell/sharp/issues/2642#issuecomment-1180197850
-          const supportedFormats = [
-            'jpg',
-            'jpeg',
-            'gif',
-            'webp',
-            'tif',
-            'png',
-            'jpeg',
-          ]
-          const fileExt = path.extname(file).substring(1)
-          if (isImage(file) && supportedFormats.includes(fileExt)) {
-            try {
-              await sharp(file)
-                .blur(sigma)
-                .toBuffer()
-                .then((buffer) => {
-                  sharp(buffer).toFile(file)
-                })
-            } catch (err) {
-              throw err
-            }
-          }
-        })
-
-        resolve(files.length)
-      } catch (err) {
-        reject(err)
-      }
-    })
-  })
+const entry = (targetDir: string, sigma?: number | boolean) => {
+  return new Promise(
+    async (resolve, reject) =>
+      await Promise.all(
+        (await getFileList(targetDir)).map((file) => blurImage(file, sigma)),
+      )
+        .then((done) => resolve(done))
+        .catch((err) => reject(err)),
+  )
 }
 
 export default entry
