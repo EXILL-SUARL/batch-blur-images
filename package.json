@@ -13,7 +13,7 @@
     "build"
   ],
   "main": "./build/index.js",
-  "types": "./build.index.d.ts",
+  "types": "./build/index.d.ts",
   "scripts": {
     "ts-node": "ts-node-esm ./src",
     "format": "prettier --write **/*.ts",
