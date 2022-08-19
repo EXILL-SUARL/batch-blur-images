@@ -12,4 +12,4 @@ jobs:
         uses: jaid/action-sync-node-meta@v2.0.0
         with:
           direction: overwrite-github
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          githubToken: ${{ secrets.customGithubToken }}
