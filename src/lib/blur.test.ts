@@ -33,7 +33,7 @@ beforeAll(() => {
 })
 
 afterAll(async () => {
-  await fs.promises.rm(tempDir, { recursive: true, force: true })
+  return fs.promises.rm(tempDir, { recursive: true, force: true })
 })
 
 test(`The promise resolves with the same amount of files as the source`, async () => {
