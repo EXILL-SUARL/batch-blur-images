@@ -1,5 +1,6 @@
 name: Sync package.json with repository info
 on:
+  workflow_dispatch:
   push:
     branches: [master]
 jobs:
