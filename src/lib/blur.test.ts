@@ -21,6 +21,7 @@ const getImage = async () =>
     })
 
 test.before(async (t) => {
+  t.timeout(120000)
   return new Promise(async (resolve, reject) => {
     try {
       await mkdirp(tempDir)
@@ -38,7 +39,6 @@ test.after(async (t) => {
 })
 
 test(`The promise resolves with the same amount of files as the source`, async (t) => {
-  t.timeout(120000)
   t.plan(1)
   const totalRuns = (await getFileList(tempDir)).length
   return blur(tempDir, 5).then(({ length }: { length: number }) =>
