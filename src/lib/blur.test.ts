@@ -9,7 +9,7 @@ const tempDir = './jest-temp'
 
 const getImage = async () =>
   axios
-    .get('http://placekitten.com/200/300', {
+    .get('https://picsum.photos/520', {
       responseType: 'arraybuffer',
     })
     .then(async (buffer) => {
