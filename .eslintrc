@@ -5,7 +5,6 @@
   },
   "extends": [
     "standard-with-typescript",
-    "plugin:jest/recommended",
     "prettier"
   ],
   "overrides": [],
@@ -14,8 +13,5 @@
     "ecmaVersion": 2022,
     "sourceType": "module"
   },
-  "plugins": [
-    "jest"
-  ],
   "rules": {}
 }

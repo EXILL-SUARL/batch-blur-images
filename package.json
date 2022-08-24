@@ -16,6 +16,14 @@
   "files": [
     "build"
   ],
+  "ava": {
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm"
+    ]
+  },
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "scripts": {
@@ -26,7 +34,7 @@
     "lint:fix": "eslint ./**/*.ts --fix",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf build node_modules/.cache",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "npx ava",
     "docs": "typedoc --entryPoints src/index.ts",
     "dev": "npm run clean && tsc --build --watch",
     "build": "tsc",
@@ -49,24 +57,20 @@
     "access": "public"
   },
   "devDependencies": {
-    "@jest/types": "^28.1.3",
-    "@types/jest": "^28.1.7",
     "@types/mkdirp": "^1.0.2",
     "@types/node": "^18.7.6",
     "@types/sharp": "^0.30.5",
     "@types/uuid": "^8.3.4",
+    "ava": "^4.3.1",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "dotenv-cli": "^6.0.0",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-jest": "^26.8.3",
-    "jest": "^28.1.3",
     "mkdirp": "^1.0.4",
     "prettier": "^2.7.1",
     "release-it": "^15.3.0",
     "rimraf": "^3.0.2",
-    "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
     "typedoc": "^0.23.10",
     "typescript": "^4.7.4",

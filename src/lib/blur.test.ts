@@ -4,8 +4,9 @@ import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'
 import mkdirp from 'mkdirp'
 import axios from 'axios'
+import test from 'ava'
 
-const tempDir = './jest-temp'
+const tempDir = './test-temp'
 
 const getImage = async () =>
   axios
@@ -13,18 +14,18 @@ const getImage = async () =>
       responseType: 'arraybuffer',
     })
     .then(async (buffer) => {
-      await fs.promises.writeFile(`./jest-temp/${uuidv4()}.jpg`, buffer.data)
+      await fs.promises.writeFile(`${tempDir}/${uuidv4()}.jpg`, buffer.data)
     })
     .catch((err) => {
       throw err
     })
 
-beforeAll(() => {
+test.before(async (t) => {
   return new Promise(async (resolve, reject) => {
     try {
       await mkdirp(tempDir)
-      Promise.all(Array.from(Array(7)).map(async () => await getImage())).then(
-        (item) => resolve(item),
+      Promise.all(Array.from(Array(10)).map(async () => await getImage())).then(
+        (item: any) => resolve(item),
       )
     } catch (err) {
       reject(err)
@@ -32,12 +33,15 @@ beforeAll(() => {
   })
 })
 
-afterAll(async () => {
+test.after(async (t) => {
   return fs.promises.rm(tempDir, { recursive: true, force: true })
 })
 
-test(`The promise resolves with the same amount of files as the source`, async () => {
-  expect.assertions(1)
+test(`The promise resolves with the same amount of files as the source`, async (t) => {
+  t.timeout(120000)
+  t.plan(1)
   const totalRuns = (await getFileList(tempDir)).length
-  return expect(blur(tempDir, 5)).resolves.toHaveLength(totalRuns)
+  return blur(tempDir, 5).then(({ length }: { length: number }) =>
+    t.is(length, totalRuns),
+  )
 })
