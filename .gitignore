@@ -103,6 +103,7 @@ dist
 
 # This library
 build
+test-temp
 
 .env*
 !.env.project
