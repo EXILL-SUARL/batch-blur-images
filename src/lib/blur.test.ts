@@ -13,8 +13,8 @@ const getImage = async () =>
     .get('https://picsum.photos/240', {
       responseType: 'arraybuffer',
     })
-    .then(async (buffer) => {
-      await fs.promises.writeFile(`${tempDir}/${uuidv4()}.jpg`, buffer.data)
+    .then((buffer) => {
+      fs.promises.writeFile(`${tempDir}/${uuidv4()}.jpg`, buffer.data)
     })
     .catch((err) => {
       throw err
@@ -22,26 +22,20 @@ const getImage = async () =>
 
 test.before(async (t) => {
   t.timeout(120000)
-  return new Promise(async (resolve, reject) => {
-    try {
-      await mkdirp(tempDir)
-      Promise.all(Array.from(Array(10)).map(async () => await getImage())).then(
-        (item: any) => resolve(item),
-      )
-    } catch (err) {
-      reject(err)
-    }
-  })
+  try {
+    await mkdirp(tempDir)
+    Array.from(Array(10)).forEach(async () => await getImage())
+  } catch (err) {
+    throw err
+  }
 })
 
-test.after.always(
-  async (t) => await fs.promises.rm(tempDir, { recursive: true, force: true }),
-)
+test.after.always((t) => fs.promises.rmdir(tempDir, { recursive: true }))
 
 test(`The promise resolves with the same amount of files as the source`, async (t) => {
   t.plan(1)
   const totalRuns = (await getFileList(tempDir)).length
-  return blur(tempDir, 5).then(({ length }: { length: number }) =>
+  await blur(tempDir, 5).then(({ length }: { length: number }) =>
     t.is(length, totalRuns),
   )
 })

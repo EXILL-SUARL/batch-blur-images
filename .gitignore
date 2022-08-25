@@ -104,6 +104,7 @@ dist
 # This library
 build
 test-temp
+core
 
 .env*
 !.env.project
