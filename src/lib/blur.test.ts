@@ -30,7 +30,7 @@ test.before(async (t) => {
   }
 })
 
-test.after.always((t) => fs.promises.rmdir(tempDir, { recursive: true }))
+test.after.always((t) => fs.promises.rm(tempDir, { recursive: true }))
 
 test(`The promise resolves with the same amount of files as the source`, async (t) => {
   t.plan(1)
