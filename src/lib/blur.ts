@@ -30,7 +30,10 @@ const blurImage = async (file: string, sigma?: number | boolean) => {
  * @param {(number | boolean)} sigma The value for Sharp's blur sigma parameter: https://sharp.pixelplumbing.com/api-operation#blur.
  * @returns {Promise<unknown>}
  */
-const entry = (targetDir: string, sigma?: number | boolean) => {
+const entry = (
+  targetDir: string,
+  sigma?: number | boolean,
+): Promise<unknown> => {
   return new Promise(
     async (resolve, reject) =>
       await Promise.all(
