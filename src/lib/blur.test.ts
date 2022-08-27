@@ -1,5 +1,4 @@
 import blur from './blur.js'
-import { getFileList } from './utils.js'
 import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'
 import mkdirp from 'mkdirp'
@@ -8,7 +7,7 @@ import test from 'ava'
 
 const tempDir = './test-temp'
 
-const getImage = async () =>
+const getImage = () =>
   axios
     .get('https://picsum.photos/240', {
       responseType: 'arraybuffer',
@@ -24,7 +23,9 @@ test.before(async (t) => {
   t.timeout(120000)
   try {
     await mkdirp(tempDir)
-    Array.from(Array(10)).forEach(async () => await getImage())
+    for (let index = 0; index < 10; index++) {
+      await getImage()
+    }
   } catch (err) {
     throw err
   }
@@ -32,10 +33,12 @@ test.before(async (t) => {
 
 test.after.always((t) => fs.promises.rm(tempDir, { recursive: true }))
 
-test(`The promise resolves with the same amount of files as the source`, async (t) => {
+test(`The iterable of promises are all fulfilled`, async (t) => {
   t.plan(1)
-  const totalRuns = (await getFileList(tempDir)).length
-  await blur(tempDir, 5).then(({ length }: { length: number }) =>
-    t.is(length, totalRuns),
+  await blur(tempDir, 5).then(
+    (all: { status: string; reason?: any; rejected?: Error }[]) => {
+      const rejectedList = all.filter((result) => result.status === 'rejected')
+      t.is(rejectedList.length, 0)
+    },
   )
 })
