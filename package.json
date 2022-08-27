@@ -21,8 +21,7 @@
       "ts": "module"
     },
     "nodeArguments": [
-      "--loader=ts-node/esm",
-      "--trace-warnings"
+      "--loader=ts-node/esm"
     ]
   },
   "main": "./build/index.js",
