@@ -1,5 +1,9 @@
 import { readdir } from 'fs/promises'
 
+export const error = (message: string) => {
+  return new Error(message)
+}
+
 export const getFileList = async (dirName: string) => {
   let files: string[] = []
   const items = await readdir(dirName, { withFileTypes: true })
