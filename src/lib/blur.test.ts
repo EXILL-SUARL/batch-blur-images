@@ -9,7 +9,7 @@ const tempDir = './test-temp'
 
 const getImage = () =>
   axios
-    .get('https://picsum.photos/240', {
+    .get('https://api.lorem.space/image?w=240', {
       responseType: 'arraybuffer',
     })
     .then((buffer) => {
